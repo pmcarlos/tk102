@@ -18,7 +18,7 @@ function output (data) {
 }
 
 // report only track event to console
-tk102.on ('track', output);
+tk102.on ('track', output(gps));
 
 // wait for server to be ready
 tk102.on ('listening', function (lst) {
@@ -31,11 +31,24 @@ tk102.on ('listening', function (lst) {
     console.log ('Connected to TK102 server');
     console.log ('Sending GPS data string for processing');
 
-    client.write (gps + '\r\n');
+    //client.write (gps + '\r\n');
     client.end ();
 
     console.log ('CTRL+C to exit');
   });
+});
+
+server.on ('connection', function (socket) {
+  console.log ('Connection from '+ socket.remoteAddress);
+});
+
+
+server.on ('fail', function (err) {
+  console.log (err);
+});
+
+server.on ('data', function (raw) {
+  console.log ('Incoming data: '+ raw);
 });
 
 // start server
