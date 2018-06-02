@@ -9,16 +9,15 @@ var net = require ('net');
 
 var gps = '1203292316,0031698765432,GPRMC,211657.000,A,5213.0247,N,00516.7757,E,0.00,273.30,290312,,,A*62,F,imei:123456789012345,123';
 
-// fancy console log
-function output (data) {
+
+
+// report only track event to console
+tk102.on ('track', function (gps) {
   console.log ('\nIncoming GPS data:\n');
   console.dir (data, {
     colors: String (process.env.TERM) .match (/color$/)
   });
-}
-
-// report only track event to console
-tk102.on ('track', output(gps));
+});
 
 // wait for server to be ready
 tk102.on ('listening', function (lst) {
@@ -38,16 +37,16 @@ tk102.on ('listening', function (lst) {
   });
 });
 
-server.on ('connection', function (socket) {
+tk102.on ('connection', function (socket) {
   console.log ('Connection from '+ socket.remoteAddress);
 });
 
 
-server.on ('fail', function (err) {
+tk102.on ('fail', function (err) {
   console.log (err);
 });
 
-server.on ('data', function (raw) {
+tk102.on ('data', function (raw) {
   console.log ('Incoming data: '+ raw);
 });
 
