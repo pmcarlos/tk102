@@ -1,0 +1,14 @@
+{
+  "name": "tk-102",
+  "version": "1.0.0",
+  "description": "",
+  "main": "tk102.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "tk102": "^1.3.1"
+  }
+}
