@@ -25,7 +25,10 @@ var specs = [
     try {
       raw = raw.trim ();
       str = raw.split (',');
-      console.log(str[0]);
+      console.log('Received data splitted');
+      str.forEach(string => {
+        console.log(string);
+      });
       if (str.length === 18 && str [2] === 'GPRMC') {
         datetime = str [0] .replace (/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/, function (s, y, m, d, h, i) {
           return '20' + y + '-' + m + '-' + d + ' ' + h + ':' + i;
