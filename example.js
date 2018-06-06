@@ -15,6 +15,7 @@ var net = require ('net');
 tk102.on ('track', function (gps) {
   console.log ('\nIncoming GPS data:\n');
   console.log (gps);
+  console.log('\n\n');
 });
 
 // wait for server to be ready
