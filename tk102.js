@@ -120,7 +120,7 @@ tk102.createServer = function (vars) {
     var data = [];
     var size = 0;
 
-    socket.on ('data', function (ch) {
+    socket.on ('data', await function (ch) {
       data.push (ch);
       size += ch.length;
       var newData = new Buffer(ch).toString('ascii'); 
@@ -133,20 +133,16 @@ tk102.createServer = function (vars) {
         var gps = {};
         if (data != '') {
           if(! /^##/g.test(data)) {
-            data = ' ;' + data;
+            data = 'empty;' + data;
           }
-          var gps = tk102.parse (data);
+          var gps = async tk102.parse (data);
           data = [];
           size = 0;
           //socket.end ();
           if (gps) {
             tk102.emit ('track', gps);
           } else {
-            var err = new Error ('Cannot parse GPS data from device');
-            err.reason = err.message;
-            err.socket = socket;
-            err.input = data;
-            tk102.emit ('fail', err);
+            console.log('error', data);
           }
         }
       }
