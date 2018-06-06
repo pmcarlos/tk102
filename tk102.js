@@ -124,28 +124,29 @@ tk102.createServer = function (vars) {
       //console.log(ch);
       var newData = new Buffer(ch).toString('ascii'); 
       console.log(newData);
-      if(/^##/g.test(newData)) { socket.write('LOAD'); console.log('send LOAD') } 
-      tk102.emit ('data', ch);
-      data.push (ch);
-      size += ch.length;
-    });
+      if(/^##/g.test(newData)) { socket.write('LOAD'); console.log('send LOAD') } else {
+        data.push (ch);
+        size += ch.length;
 
-    socket.on( 'close', function() {
-      data = Buffer.concat (data, size);
-      data = iconv.decode (data, 'utf8');
-      var gps = {};
-      if (data != '') {
-        var gps = tk102.parse (data);
-        if (gps) {
-          tk102.emit ('track', gps);
-        } else {
-          var err = new Error ('Cannot parse GPS data from device');
-          err.reason = err.message;
-          err.socket = socket;
-          err.input = data;
-          tk102.emit ('fail', err);
+        data = Buffer.concat (data, size);
+        data = iconv.decode (data, 'utf8');
+        var gps = {};
+        if (data != '') {
+          var gps = tk102.parse (data);
+          data = [];
+          socket.end ();
+          if (gps) {
+            tk102.emit ('track', gps);
+          } else {
+            var err = new Error ('Cannot parse GPS data from device');
+            err.reason = err.message;
+            err.socket = socket;
+            err.input = data;
+            tk102.emit ('fail', err);
+          }
         }
       }
+      
     });
 
     // error

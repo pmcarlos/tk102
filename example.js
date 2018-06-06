@@ -44,9 +44,6 @@ tk102.on ('fail', function (err) {
   console.log (err);
 });
 
-tk102.on ('data', function (raw) {
-  //console.log ('Incoming data: '+ raw);
-});
 
 // start server
 tk102.createServer ({
