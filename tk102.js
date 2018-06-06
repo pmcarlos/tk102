@@ -34,7 +34,7 @@ var specs = [
       var str = raw.split (';');
       str = str[1];
       str = str.split(',');
-      console.log(raw);
+      //console.log(raw);
 
 
       if (str.length === 13 && str [1] === 'tracker') {
@@ -124,14 +124,17 @@ tk102.createServer = function (vars) {
       data.push (ch);
       size += ch.length;
       var newData = new Buffer(ch).toString('ascii'); 
-      console.log(newData);
-      if(/^##/g.test(newData)) { socket.write('LOAD'); console.log('send LOAD') } else {
+      //console.log(newData);
+      if(/^##/g.test(newData)) { socket.write('LOAD');  } else {
         
 
         data = Buffer.concat (data, size);
         data = iconv.decode (data, 'utf8');
         var gps = {};
         if (data != '') {
+          if(! /^##/g.test(data)) {
+            data = ' ;' + data;
+          }
           var gps = tk102.parse (data);
           data = [];
           size = 0;
