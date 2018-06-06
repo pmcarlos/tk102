@@ -25,7 +25,7 @@ var specs = [
     try {
       raw = raw.trim ();
       str = raw.split (',');
-
+      console.log(str[0]);
       if (str.length === 18 && str [2] === 'GPRMC') {
         datetime = str [0] .replace (/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/, function (s, y, m, d, h, i) {
           return '20' + y + '-' + m + '-' + d + ' ' + h + ':' + i;
@@ -175,14 +175,15 @@ tk102.createServer = function (vars) {
 
         if (gps) {
           tk102.event ('track', gps);
-        } else {
-          err = new Error ('Cannot parse GPS data from device');
-          err.reason = err.message;
-          err.input = data;
-          err.connection = connection;
-
-          tk102.event ('fail', err);
         }
+        // } else {
+        //   err = new Error ('Cannot parse GPS data from device');
+        //   err.reason = err.message;
+        //   err.input = data;
+        //   err.connection = connection;
+
+        //   tk102.event ('fail', err);
+        // }
       }
     });
 
