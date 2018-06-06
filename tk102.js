@@ -117,7 +117,8 @@ tk102.createServer = function (vars) {
     var size = 0;
 
     socket.on ('data', function (ch) {
-      console.log('data',ch);
+      console.log('datatoString',ch.toString('utf8'));
+      console.log('datachiconv', iconv.decode (ch, 'utf8'))
       tk102.emit ('data', ch);
       data.push (ch);
       size += ch.length;
@@ -128,7 +129,7 @@ tk102.createServer = function (vars) {
       if (tk102.settings.encoding !== 'utf8') {
         data = iconv.decode (data, tk102.settings.encoding);
       } else {
-        data = toString ('utf8');
+        data = iconv.decode (data, tk102.settings.encoding);
       }
       console.log('datautf',data);
       var gps = {};
