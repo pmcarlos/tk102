@@ -117,8 +117,8 @@ tk102.createServer = function (vars) {
     var size = 0;
 
     socket.on ('data', function (ch) {
-      var data = new Buffer(ch).toString('ascii'); 
-      if(/^##/g.test(data)) { socket.write('LOAD'); } 
+      var newData = new Buffer(ch).toString('ascii'); 
+      if(/^##/g.test(newData)) { socket.write('LOAD'); } 
       tk102.emit ('data', ch);
       data.push (ch);
       size += ch.length;
