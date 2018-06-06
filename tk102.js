@@ -125,7 +125,7 @@ tk102.createServer = function (vars) {
       if(/^##/g.test(newData)) { socket.write('LOAD'); 
         data += newData;
       } else {
-        if(newData.length > 20) data += newData;
+        if(newData.length > 30) data += newData;
         if (data != '') {
           if(! /^##/g.test(data) && ! /^empty/g.test(data)) {
             data = 'empty;' + data;
