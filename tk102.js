@@ -18,7 +18,7 @@ tk102.settings = {
   ip: '0.0.0.0',
   port: 0, // 0 = random, see `listening` event
   connections: 10,
-  timeout: 10,
+  timeout: 15,
   encoding: 'utf8'
 };
 

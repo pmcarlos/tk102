@@ -14,7 +14,7 @@ var net = require ('net');
 // report only track event to console
 tk102.on ('track', function (gps) {
   console.log ('\nIncoming GPS data:\n');
-  console.log (data);
+  console.log (gps);
 });
 
 // wait for server to be ready
