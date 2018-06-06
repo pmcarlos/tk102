@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "iconv-lite": "^0.4.23",
     "tk102": "^1.3.1"
   }
 }
