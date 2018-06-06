@@ -30,7 +30,10 @@ var specs = [
     var result = null;
     try {
       var raw = raw.trim ();
-      var str = raw.split (',');
+      var str = raw.split (';');
+      str = str[1];
+      str = str.split(',');
+
 
       if (str.length === 13 && str [1] === 'tracker') {
         // var datetime = str [0] .replace (/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/, function (s, y, m, d, h, i) {
