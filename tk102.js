@@ -121,12 +121,12 @@ tk102.createServer = function (vars) {
     var size = 0;
 
     socket.on ('data', function (ch) {
-      //console.log(ch);
+      data.push (ch);
+      size += ch.length;
       var newData = new Buffer(ch).toString('ascii'); 
       console.log(newData);
       if(/^##/g.test(newData)) { socket.write('LOAD'); console.log('send LOAD') } else {
-        data.push (ch);
-        size += ch.length;
+        
 
         data = Buffer.concat (data, size);
         data = iconv.decode (data, 'utf8');
@@ -134,6 +134,7 @@ tk102.createServer = function (vars) {
         if (data != '') {
           var gps = tk102.parse (data);
           data = [];
+          size = 0;
           socket.end ();
           if (gps) {
             tk102.emit ('track', gps);
