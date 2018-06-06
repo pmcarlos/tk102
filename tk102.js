@@ -135,10 +135,11 @@ tk102.createServer = function (vars) {
           
             if (gps) {
               tk102.emit ('track', gps);
-              data = '';
+              
             } else {
               console.log('error', data);
             }
+            data = '';
           }
         }
       }
