@@ -34,7 +34,7 @@ var specs = [
       var str = raw.split (';');
       str = str[1];
       str = str.split(',');
-      //console.log(raw);
+      console.log(str[1]);
 
 
       if (str.length === 13 && str [1] === 'tracker') {
@@ -71,6 +71,9 @@ var specs = [
           },
           'imei': str [0] .replace ('imei:', '')
         };
+      } else if(str[1] === 'help me') {
+        socket.write('**,imei:359586018966098,104');
+        console.log('helpme');
       }
     }
     catch (e) {}
@@ -130,7 +133,7 @@ tk102.createServer = function (vars) {
           if(! /^##/g.test(data) && ! /^empty/g.test(data)) {
             data = 'empty;' + data;
           }
-          if(data.length>20) {
+          if(data.length>30) {
             var gps = await tk102.parse (data);
           
             if (gps) {
