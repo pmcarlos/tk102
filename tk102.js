@@ -32,40 +32,39 @@ var specs = [
       var raw = raw.trim ();
       var str = raw.split (',');
 
-      if (str.length === 18 && str [2] === 'GPRMC') {
-        var datetime = str [0] .replace (/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/, function (s, y, m, d, h, i) {
-          return '20'+ y +'-'+ m +'-'+ d +' '+ h +':'+ i;
-        });
+      if (str.length === 13 && str [1] === 'tracker') {
+        // var datetime = str [0] .replace (/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/, function (s, y, m, d, h, i) {
+        //   return '20'+ y +'-'+ m +'-'+ d +' '+ h +':'+ i;
+        // });
 
-        var gpsdate = str [11] .replace (/([0-9]{2})([0-9]{2})([0-9]{2})/, function (s, d, m, y) {
-          return '20'+ y +'-'+ m +'-'+ d;
-        });
+        // var gpsdate = str [11] .replace (/([0-9]{2})([0-9]{2})([0-9]{2})/, function (s, d, m, y) {
+        //   return '20'+ y +'-'+ m +'-'+ d;
+        // });
 
-        var gpstime = str [3] .replace (/([0-9]{2})([0-9]{2})([0-9]{2})\.([0-9]{3})/, function (s, h, i, s, ms) {
+        var gpstime = str [2] .replace (/([0-9]{2})([0-9]{2})([0-9]{2})\.([0-9]{3})/, function (s, h, i, s, ms) {
           return h +':'+ i +':'+ s +'.'+ ms
         });
 
         result = {
           'raw': raw,
-          'datetime': datetime,
-          'phone': str [1],
+          //'datetime': datetime,
           'gps': {
-            'date': gpsdate,
+            //'date': gpsdate,
             'time': gpstime,
-            'signal': str [15] == 'F' ? 'full' : 'low',
-            'fix': str [4] == 'A' ? 'active' : 'invalid'
+            'signal': str [4] == 'F' ? 'full' : 'low',
+            'fix': str [6] == 'A' ? 'active' : 'invalid'
           },
           'geo': {
-            'latitude': tk102.fixGeo (str [5], str [6]),
-            'longitude': tk102.fixGeo (str [7], str [8]),
-            'bearing': parseInt (str [10])
+            'latitude': tk102.fixGeo (str [7], str [8]),
+            'longitude': tk102.fixGeo (str [9], str [10]),
+            'bearing': parseInt (str [11])
           },
           'speed': {
-            'knots': Math.round (str [9] * 1000) / 1000,
-            'kmh': Math.round (str [9] * 1.852 * 1000) / 1000,
-            'mph': Math.round (str [9] * 1.151 * 1000) / 1000
+            'knots': Math.round (str [10] * 1000) / 1000,
+            'kmh': Math.round (str [10] * 1.852 * 1000) / 1000,
+            'mph': Math.round (str [10] * 1.151 * 1000) / 1000
           },
-          'imei': str [16] .replace ('imei:', '')
+          'imei': str [0] .replace ('imei:', '')
         };
       }
     }
@@ -119,8 +118,6 @@ tk102.createServer = function (vars) {
     socket.on ('data', function (ch) {
       var newData = new Buffer(ch).toString('ascii'); 
       if(/^##/g.test(newData)) { socket.write('LOAD'); console.log('send LOAD') } 
-      console.log(iconv.decode (ch, 'utf8'));
-      console.log(newData);
       tk102.emit ('data', ch);
       data.push (ch);
       size += ch.length;
@@ -128,25 +125,20 @@ tk102.createServer = function (vars) {
 
     socket.on( 'close', function() {
       data = Buffer.concat (data, size);
-      if (tk102.settings.encoding !== 'utf8') {
-        data = iconv.decode (data, tk102.settings.encoding);
-      } else {
-        data = iconv.decode (data, tk102.settings.encoding);
-      }
-      console.log('datautf',data);
+      data = iconv.decode (data, 'utf8');
       var gps = {};
-      // if (data != '') {
-      //   var gps = tk102.parse (data);
-      //   if (gps) {
-      //     tk102.emit ('track', gps);
-      //   } else {
-      //     var err = new Error ('Cannot parse GPS data from device');
-      //     err.reason = err.message;
-      //     err.socket = socket;
-      //     err.input = data;
-      //     tk102.emit ('fail', err);
-      //   }
-      // }
+      if (data != '') {
+        var gps = tk102.parse (data);
+        if (gps) {
+          tk102.emit ('track', gps);
+        } else {
+          var err = new Error ('Cannot parse GPS data from device');
+          err.reason = err.message;
+          err.socket = socket;
+          err.input = data;
+          tk102.emit ('fail', err);
+        }
+      }
     });
 
     // error
