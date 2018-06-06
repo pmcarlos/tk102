@@ -117,20 +117,12 @@ tk102.createServer = function (vars) {
       socket.setEncoding ('binary');
     }
     tk102.emit ('connection', socket);
-    var data = [];
-    var size = 0;
+    var data = '';
 
     socket.on ('data', async function (ch) {
-      data.push (ch);
-      size += ch.length;
       var newData = new Buffer(ch).toString('ascii'); 
-      //console.log(newData);
+      data += newData;
       if(/^##/g.test(newData)) { socket.write('LOAD');  } else {
-        
-
-        data = Buffer.concat (data, size);
-        data = iconv.decode (data, 'utf8');
-        var gps = {};
         if (data != '') {
           if(! /^##/g.test(data)) {
             data = 'empty;' + data;
@@ -139,8 +131,7 @@ tk102.createServer = function (vars) {
           
           if (gps) {
             tk102.emit ('track', gps);
-            data = [];
-            size = 0;
+            data = '';
           } else {
             console.log('error', data);
           }
@@ -189,7 +180,7 @@ tk102.fixGeo = function (one, two) {
   var degrees = parseInt (one.replace (minutes, ''), 10);
   var one = degrees + (minutes / 60);
   var one = parseFloat ((two === 'S' || two === 'W' ? '-' : '') + one);
-  return Math.round (one * 1000000) / 1000000;
+  return Math.round (one * 100000) / 1000000;
 };
 
 // ready
