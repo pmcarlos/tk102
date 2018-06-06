@@ -60,12 +60,12 @@ var specs = [
           'geo': {
             'latitude': tk102.fixGeo (str [7], str [8]),
             'longitude': tk102.fixGeo (str [9], str [10]),
-            'bearing': parseInt (str [11])
+            'bearing': parseInt (str [12])
           },
           'speed': {
-            'knots': Math.round (str [10] * 1000) / 1000,
-            'kmh': Math.round (str [10] * 1.852 * 1000) / 1000,
-            'mph': Math.round (str [10] * 1.151 * 1000) / 1000
+            'knots': Math.round (str [11] * 1000) / 1000,
+            'kmh': Math.round (str [11] * 1.852 * 1000) / 1000,
+            'mph': Math.round (str [11] * 1.151 * 1000) / 1000
           },
           'imei': str [0] .replace ('imei:', '')
         };
