@@ -136,11 +136,11 @@ tk102.createServer = function (vars) {
             data = 'empty;' + data;
           }
           var gps = await tk102.parse (data);
-          data = [];
-          size = 0;
-          //socket.end ();
+          
           if (gps) {
             tk102.emit ('track', gps);
+            data = [];
+            size = 0;
           } else {
             console.log('error', data);
           }
