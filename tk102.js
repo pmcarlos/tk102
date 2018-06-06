@@ -120,7 +120,7 @@ tk102.createServer = function (vars) {
     var data = [];
     var size = 0;
 
-    socket.on ('data', await function (ch) {
+    socket.on ('data', async function (ch) {
       data.push (ch);
       size += ch.length;
       var newData = new Buffer(ch).toString('ascii'); 
@@ -135,7 +135,7 @@ tk102.createServer = function (vars) {
           if(! /^##/g.test(data)) {
             data = 'empty;' + data;
           }
-          var gps = async tk102.parse (data);
+          var gps = await tk102.parse (data);
           data = [];
           size = 0;
           //socket.end ();
