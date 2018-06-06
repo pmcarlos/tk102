@@ -121,8 +121,11 @@ tk102.createServer = function (vars) {
 
     socket.on ('data', async function (ch) {
       var newData = new Buffer(ch).toString('ascii'); 
-      data += newData;
-      if(/^##/g.test(newData)) { socket.write('LOAD');  } else {
+      
+      if(/^##/g.test(newData)) { socket.write('LOAD'); 
+        data += newData;
+      } else {
+        if(newData.length > 20) data += newData;
         if (data != '') {
           if(! /^##/g.test(data) && ! /^empty/g.test(data)) {
             data = 'empty;' + data;
