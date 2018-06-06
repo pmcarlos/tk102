@@ -124,16 +124,18 @@ tk102.createServer = function (vars) {
       data += newData;
       if(/^##/g.test(newData)) { socket.write('LOAD');  } else {
         if (data != '') {
-          if(! /^##/g.test(data)) {
+          if(! /^##/g.test(data) && ! /^empty/g.test(data)) {
             data = 'empty;' + data;
           }
-          var gps = await tk102.parse (data);
+          if(data.length>20) {
+            var gps = await tk102.parse (data);
           
-          if (gps) {
-            tk102.emit ('track', gps);
-            data = '';
-          } else {
-            console.log('error', data);
+            if (gps) {
+              tk102.emit ('track', gps);
+              data = '';
+            } else {
+              console.log('error', data);
+            }
           }
         }
       }
