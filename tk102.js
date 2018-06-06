@@ -72,7 +72,7 @@ var specs = [
           'imei': str [0] .replace ('imei:', '')
         };
       } else if(str[1] === 'help me') {
-        socket.write('**,imei:359586018966098,104');
+        socket.write('**,imei:' + str [0] .replace ('imei:', '') + ',104');
         console.log('helpme');
       }
     }
