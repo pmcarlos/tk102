@@ -18,7 +18,7 @@ tk102.settings = {
   ip: '0.0.0.0',
   port: 0, // 0 = random, see `listening` event
   connections: 10,
-  timeout: 15,
+  timeout: 30,
   encoding: 'utf8'
 };
 
@@ -135,7 +135,7 @@ tk102.createServer = function (vars) {
           var gps = tk102.parse (data);
           data = [];
           size = 0;
-          socket.end ();
+          //socket.end ();
           if (gps) {
             tk102.emit ('track', gps);
           } else {
