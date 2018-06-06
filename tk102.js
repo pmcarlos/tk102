@@ -29,10 +29,12 @@ var specs = [
   function (raw) {
     var result = null;
     try {
+
       var raw = raw.trim ();
       var str = raw.split (';');
       str = str[1];
       str = str.split(',');
+      console.log(raw);
 
 
       if (str.length === 13 && str [1] === 'tracker') {
