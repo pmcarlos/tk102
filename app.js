@@ -36,9 +36,9 @@ tk102.on ('listening', function (lst) {
   });
 });
 
-// tk102.on ('connection', function (socket) {
-//   console.log ('Connection from '+ socket.remoteAddress);
-// });
+tk102.on ('connection', function (socket) {
+  console.log ('Connection from '+ socket.remoteAddress);
+});
 
 
 tk102.on ('fail', function (err) {
