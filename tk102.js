@@ -35,7 +35,7 @@ var specs = [
       str = str[1];
       str = str.split(',');
       if(str.length === 13) {
-        var datetime = str [2] .replace (/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/, function ( y, m, d, h, i, s) {
+        var datetime = str [2] .replace (/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/, function ( a, y, m, d, h, i, s) {
           return '20'+ y +'-'+ m +'-'+ d +' '+ h +':'+ i +':'+ s;
         });
       }
