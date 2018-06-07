@@ -34,12 +34,12 @@ var specs = [
       var str = raw.split (';');
       str = str[1];
       str = str.split(',');
-
-      if (str.length === 13 && str [1] === 'tracker') {
-        var datetime = str [2] .replace (/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/, function (s, y, m, d, h, i) {
+      if(str.length === 13) {
+        var datetime = str [2] .replace (/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/, function (s, y, m, d, h, i) {
           return '20'+ y +'-'+ m +'-'+ d +' '+ h +':'+ i;
         });
-
+      }
+      if (str.length === 13 && str [1] === 'tracker') {
         result = {
           'raw': raw,
           'datetime': datetime,
@@ -62,19 +62,12 @@ var specs = [
           'imei': str [0] .replace ('imei:', '')
         };
       } else if(str[1] === 'help me') {
-        //socket.write('**,imei:' + str [0] .replace ('imei:', '') + ',104');
-        var datetime = str [2] .replace (/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/, function (s, y, m, d, h, i) {
-          return '20'+ y +'-'+ m +'-'+ d +' '+ h +':'+ i;
-        });
         console.log('helpme');
         result = {
           'raw': raw ,
           'datetime': datetime,
         }
       } else if(str[1] === 'low battery') {
-        var datetime = str [2] .replace (/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/, function (s, y, m, d, h, i) {
-          return '20'+ y +'-'+ m +'-'+ d +' '+ h +':'+ i;
-        });
         console.log('low battery');
         result = {
           'raw': raw ,
