@@ -36,7 +36,7 @@ var specs = [
       str = str.split(',');
       if(str.length === 13) {
         var datetime = str [2] .replace (/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/, function (s, y, m, d, h, i) {
-          return '20'+ y +'-'+ m +'-'+ d +' '+ h +':'+ i;
+          return '20'+ y +'-'+ m +'-'+ d +' '+ h +':'+ i +':'+ s;
         });
       }
       if (str.length === 13 && str [1] === 'tracker') {
