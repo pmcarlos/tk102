@@ -34,28 +34,18 @@ var specs = [
       var str = raw.split (';');
       str = str[1];
       str = str.split(',');
-      console.log(str[1]);
-
 
       if (str.length === 13 && str [1] === 'tracker') {
-        // var datetime = str [0] .replace (/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/, function (s, y, m, d, h, i) {
-        //   return '20'+ y +'-'+ m +'-'+ d +' '+ h +':'+ i;
-        // });
-
-        // var gpsdate = str [11] .replace (/([0-9]{2})([0-9]{2})([0-9]{2})/, function (s, d, m, y) {
-        //   return '20'+ y +'-'+ m +'-'+ d;
-        // });
-
-        var gpstime = str [2] .replace (/([0-9]{2})([0-9]{2})([0-9]{2})\.([0-9]{3})/, function (s, h, i, s, ms) {
-          return h +':'+ i +':'+ s +'.'+ ms
+        var datetime = str [2] .replace (/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/, function (s, y, m, d, h, i) {
+          return '20'+ y +'-'+ m +'-'+ d +' '+ h +':'+ i;
         });
 
         result = {
           'raw': raw,
-          //'datetime': datetime,
+          'datetime': datetime,
           'gps': {
             //'date': gpsdate,
-            'time': gpstime,
+            //'time': datetime,
             'signal': str [4] == 'F' ? 'full' : 'low',
             'fix': str [6] == 'A' ? 'active' : 'invalid'
           },
@@ -72,8 +62,24 @@ var specs = [
           'imei': str [0] .replace ('imei:', '')
         };
       } else if(str[1] === 'help me') {
-        socket.write('**,imei:' + str [0] .replace ('imei:', '') + ',104');
+        //socket.write('**,imei:' + str [0] .replace ('imei:', '') + ',104');
+        var datetime = str [2] .replace (/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/, function (s, y, m, d, h, i) {
+          return '20'+ y +'-'+ m +'-'+ d +' '+ h +':'+ i;
+        });
         console.log('helpme');
+        result = {
+          'raw': raw ,
+          'datetime': datetime,
+        }
+      } else if(str[1] === 'low battery') {
+        var datetime = str [2] .replace (/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/, function (s, y, m, d, h, i) {
+          return '20'+ y +'-'+ m +'-'+ d +' '+ h +':'+ i;
+        });
+        console.log('low battery');
+        result = {
+          'raw': raw ,
+          'datetime': datetime,
+        }
       }
     }
     catch (e) {}
@@ -119,7 +125,7 @@ tk102.createServer = function (vars) {
     if (tk102.settings.encoding !== 'utf8') {
       socket.setEncoding ('binary');
     }
-    tk102.emit ('connection', socket);
+    //tk102.emit ('connection', socket);
     var data = '';
 
     socket.on ('data', async function (ch) {
