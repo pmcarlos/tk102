@@ -123,29 +123,7 @@ tk102.createServer = function (vars) {
 
     socket.on ('data', async function (ch) {
       console.log('new data', ch)
-      var newData = new Buffer(ch).toString('ascii'); 
       
-      if(/^##/g.test(newData)) { socket.write('LOAD'); 
-        data += newData;
-      } else {
-        if(newData.length > 30) data += newData;
-        if (data != '') {
-          if(! /^##/g.test(data) && ! /^empty/g.test(data)) {
-            data = 'empty;' + data;
-          }
-          if(data.length>30) {
-            var gps = await tk102.parse (data);
-          
-            if (gps) {
-              tk102.emit ('track', gps);
-              
-            } else {
-              console.log('error', data);
-            }
-            data = '';
-          }
-        }
-      }
       
     });
 
