@@ -123,18 +123,20 @@ tk102.createServer = function (vars) {
 
     socket.on ('data', async function (ch) {
       console.log('new data', ch)
-      // const year = ch.splice(67,2)
-      // const month = ch.splice(66,1)
-      // const day = ch.splice(65,1)
-      // const hour = ch.splice(64,1)
-      // const minute = ch.splice(63,1)
-      // const second = ch.splice(62,1)
-      // const speedDirection = ch.splice(60,2)
-      // const groundSpeed = ch.splice(56,4)
-      // const longitude = ch.splice(44,4)
-      // const latitude = ch.splice(48,4)
-      // console.log(latitude+','+longitude+' '+groundSpeed+'-'+year+'-'+month+'-'+day+'-'+hour+'-'+minute+'-'+second)
       console.log(ch[67], ch[68])
+      const ch_ = [...ch]
+      const year = ch_.splice(67,2)
+      const month = ch_.splice(66,1)
+      const day = ch_.splice(65,1)
+      const hour = ch_.splice(64,1)
+      const minute = ch_.splice(63,1)
+      const second = ch_.splice(62,1)
+      const speedDirection = ch_.splice(60,2)
+      const groundSpeed = ch_.splice(56,4)
+      const longitude = ch_.splice(44,4)
+      const latitude = ch_.splice(48,4)
+      console.log(latitude+','+longitude+' '+groundSpeed+'-'+year+'-'+month+'-'+day+'-'+hour+'-'+minute+'-'+second)
+      
       
     });
 
