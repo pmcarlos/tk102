@@ -125,10 +125,10 @@ tk102.createServer = function (vars) {
       console.log('new data', ch)
       console.log(ch[67], ch[68])
       const ch_ = [...ch]
-      console.log('ch_', ch_)
+      // console.log('ch_', ch_)
       let year
-      ch_.splice(67,2).toString('hex').split(',').forEach(val => {
-        year += val.toString(16)
+      ch_.splice(67,2).forEach(val => {
+        year = year + ' ' + val.toString(16)
       })
       const month = ch_.splice(66,1).toString('hex')
       const day = ch_.splice(65,1).toString('hex')
