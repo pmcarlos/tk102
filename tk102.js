@@ -127,6 +127,10 @@ tk102.createServer = function (vars) {
       const ch_ = [...ch]
       // console.log('ch_', ch_)
       let year
+      let buffer
+      ch_.forEach(val => {
+        buffer = buffer ? buffer + ' ' + val.toString(16) : val.toString(16)
+      })
       ch_.splice(67,2).forEach(val => {
         console.log(val, val.toString(16))
         year = year ? year + ' ' + val.toString(16) : val.toString(16)
