@@ -122,7 +122,7 @@ tk102.createServer = function (vars) {
     var data = '';
 
     socket.on ('data', async function (ch) {
-      console.log('new data', ch)
+      console.log('-------new data', ch)
       console.log(ch[67], ch[68])
       const ch_ = [...ch]
       // console.log('ch_', ch_)
