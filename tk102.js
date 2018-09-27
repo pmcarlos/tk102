@@ -132,7 +132,6 @@ tk102.createServer = function (vars) {
         buffer = buffer ? buffer + ' ' + val.toString(16) : val.toString(16)
       })
       ch_.splice(67,2).forEach(val => {
-        console.log(val, val.toString(16))
         year = year ? year + ' ' + val.toString(16) : val.toString(16)
       })
       const month = ch_.splice(66,1).toString('hex')
@@ -147,6 +146,7 @@ tk102.createServer = function (vars) {
       console.log('longitude', longitude)
       console.log('latitude',latitude)
       console.log('year',year)
+      console.log('buffer', buffer)
       
       
     });
