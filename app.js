@@ -47,5 +47,5 @@ tk102.on ('fail', function (err) {
 
 // start server
 tk102.createServer ({
-  port: 1337
+  port: 5006
 });
