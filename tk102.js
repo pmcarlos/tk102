@@ -135,7 +135,8 @@ tk102.createServer = function (vars) {
       const groundSpeed = ch_.splice(56,4).toString('hex')
       const longitude = ch_.splice(44,4).toString('hex')
       const latitude = ch_.splice(48,4).toString('hex')
-      console.log(latitude+','+longitude+' '+groundSpeed+'-'+year+'-'+month+'-'+day+'-'+hour+'-'+minute+'-'+second)
+      console.log('latitude'+latitude)
+      console.log('year'+year)
       
       
     });
