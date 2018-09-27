@@ -129,7 +129,7 @@ tk102.createServer = function (vars) {
       let year
       ch_.splice(67,2).forEach(val => {
         console.log(val, val.toString(16))
-        year = year + ' ' + val.toString(16)
+        year = year ? year + ' ' + val.toString(16) : val.toString(16)
       })
       const month = ch_.splice(66,1).toString('hex')
       const day = ch_.splice(65,1).toString('hex')
