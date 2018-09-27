@@ -123,7 +123,9 @@ tk102.createServer = function (vars) {
 
     socket.on ('data', async function (ch) {
       console.log('new data', ch)
-      
+      ch.forEach(char => {
+        console.log(char)
+      })
       
     });
 
