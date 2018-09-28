@@ -131,9 +131,6 @@ tk102.createServer = function (vars) {
       ch_.forEach(val => {
         buffer = buffer ? buffer + ' ' + val.toString(16) : val.toString(16)
       })
-      ch_.splice(67,2).forEach(val => {
-        year = year ? year + ' ' + val.toString(16) : val.toString(16)
-      })
       const month = ch_.splice(66,1).toString('hex')
       const day = ch_.splice(65,1).toString('hex')
       const hour = ch_.splice(64,1).toString('hex')
@@ -144,7 +141,7 @@ tk102.createServer = function (vars) {
       const longitude = ch_.splice(44,4).toString('hex')
       const latitude = ch_.splice(48,4)
       let sum = 0
-      const ack = [...ch_.splice(0,4), 04, ...ch_.splice(5,4),00, 00, 00, 00, 00, 00, ch_[11],  00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00 ]
+      const ack = [ch_[0],ch_[1],ch_[2],ch_[3], 04, ch_[5], ch_[6], ch_[7], ch_[8],00, 00, 00, 00, 00, 00, ch_[11],  00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00 ]
       for(let i = 0; i < ack.length; i++) {
         sum = (i >=4 && i <=ack.length) ? sum + ack[i] : sum
       }
