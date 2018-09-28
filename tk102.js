@@ -68,12 +68,12 @@ tk102.createServer = function (vars) {
       const ch_ = [...ch]
       const an = ch_[11]
       // console.log('ch_', ch_)
-      const year = parseInt(`0x${getHex(67,2)}`)
+      const year = parseInt(`0x${getHex(ch_,67,2)}`)
       const month = ch_[66]
       const day = ch_[65]
-      const longitude = getHex(44,4)
-      const latitude = getHex(48,4)
-      const groundSpeed = getHex(56,4)
+      const longitude = getHex(ch_,44,4)
+      const latitude = getHex(ch_,48,4)
+      const groundSpeed = getHex(ch_,56,4)
       let buffer
       let ack_buffer
       ch_.forEach(val => {
