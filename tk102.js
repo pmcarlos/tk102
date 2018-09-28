@@ -68,7 +68,7 @@ tk102.createServer = function (vars) {
       const ch_ = [...ch]
       const an = ch_[11]
       // console.log('ch_', ch_)
-      const year = `${ch_[67].toString(16)}${ch_[68].toString(16)}`
+      const year = `${ch_[68].toString(16)}${ch_[67].toString(16)}`
       console.log(parseInt('0x'+year))
       let buffer
       let ack_buffer
