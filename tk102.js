@@ -127,7 +127,9 @@ tk102.createServer = function (vars) {
 const getHex = (data, index, length) => {
   let hex = ''
   for(let i = length - 1; i == 0; i--) {
+    console.log('hex1_i_', hex)
     hex += ' '+data[index+i].toString(16)
+    console.log('hex2_i_', hex)
     if(i==0) return hex
   }
   
