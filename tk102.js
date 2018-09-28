@@ -128,8 +128,9 @@ const getHex = (data, index, length) => {
   let hex = ''
   for(let i = length - 1; i == 0; i--) {
     hex += ' '+data[index+i].toString(16)
+    if(i==0) return hex
   }
-  return hex
+  
 }
 
 
