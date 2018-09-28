@@ -65,7 +65,7 @@ tk102.createServer = function (vars) {
     var data = '';
 
     socket.on ('data', async function (ch) {
-      parseData(ch)
+      parseData(ch, socket)
       
       
     });
@@ -104,7 +104,7 @@ const getHex = (data, index, length) => {
   
   
 }
-const parseData = async (ch) => {
+const parseData = async (ch, socket) => {
   const ch_ = [...ch]
   const an = ch_[11]
   // console.log('ch_', ch_)
