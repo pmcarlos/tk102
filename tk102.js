@@ -145,7 +145,7 @@ tk102.createServer = function (vars) {
       const longitude = ch_.splice(44,4).toString('hex')
       const latitude = ch_.splice(48,4)
       let sum = 0
-      const ack = [...ch_.splice(0,5), 04, ...ch_.splice(5,4),00, 00, 00, 00, 00, 00, ...ch_[11],  00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00 ]
+      const ack = [...ch_.splice(0,5), 04, ...ch_.splice(5,4),00, 00, 00, 00, 00, 00, ch_[11],  00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00 ]
       console.log(ack)
       ack.splice(4,26).forEach(value => {
         sum += parseInt(value)
