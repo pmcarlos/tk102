@@ -23,63 +23,6 @@ tk102.settings = {
 };
 
 
-// device data
-var specs = [
-  // 1203292316,0031698765432,GPRMC,211657.000,A,5213.0247,N,00516.7757,E,0.00,273.30,290312,,,A*62,F,imei:123456789012345,123
-  function (raw) {
-    var result = null;
-    try {
-
-      var raw = raw.trim ();
-      var str = raw.split (';');
-      str = str[1];
-      str = str.split(',');
-      if(str.length === 13) {
-        var datetime = str [2] .replace (/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/, function ( a, y, m, d, h, i, s) {
-          return '20'+ y +'-'+ m +'-'+ d +' '+ h +':'+ i +':'+ s;
-        });
-      }
-      if (str.length === 13 && str [1] === 'tracker') {
-        result = {
-          'raw': raw,
-          'datetime': datetime,
-          'gps': {
-            //'date': gpsdate,
-            //'time': datetime,
-            'signal': str [4] == 'F' ? 'full' : 'low',
-            'fix': str [6] == 'A' ? 'active' : 'invalid'
-          },
-          'geo': {
-            'latitude': tk102.fixGeo (str [7], str [8]),
-            'longitude': tk102.fixGeo (str [9], str [10]),
-            'bearing': parseInt (str [12])
-          },
-          'speed': {
-            'knots': Math.round (str [11] * 1000) / 1000,
-            'kmh': Math.round (str [11] * 1.852 * 1000) / 1000,
-            'mph': Math.round (str [11] * 1.151 * 1000) / 1000
-          },
-          'imei': str [0] .replace ('imei:', '')
-        };
-      } else if(str[1] === 'help me') {
-        console.log('helpme');
-        result = {
-          'raw': raw ,
-          'datetime': datetime,
-        }
-      } else if(str[1] === 'low battery') {
-        console.log('low battery');
-        result = {
-          'raw': raw ,
-          'datetime': datetime,
-        }
-      }
-    }
-    catch (e) {}
-    return result;
-  }
-];
-
 // Catch uncaught exceptions (server kill)
 process.on ('uncaughtException', function (err) {
   var error = new Error ('uncaught exception');
@@ -179,25 +122,8 @@ tk102.createServer = function (vars) {
   });
 };
 
-// Parse GPRMC string
-tk102.parse = function (raw) {
-  var data = null;
-  var i = 0;
-  while (data === null && i < specs.length) {
-    data = specs [i] (raw);
-    i++;
-  }
-  return data;
-};
 
-// Clean geo positions, with 6 decimals
-tk102.fixGeo = function (one, two) {
-  var minutes = one.substr (-7, 7);
-  var degrees = parseInt (one.replace (minutes, ''), 10);
-  var one = degrees + (minutes / 60);
-  var one = parseFloat ((two === 'S' || two === 'W' ? '-' : '') + one);
-  return Math.round (one * 100000) / 1000000;
-};
+
 
 // ready
 module.exports = tk102;
