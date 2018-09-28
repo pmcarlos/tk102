@@ -65,38 +65,7 @@ tk102.createServer = function (vars) {
     var data = '';
 
     socket.on ('data', async function (ch) {
-      const ch_ = [...ch]
-      const an = ch_[11]
-      // console.log('ch_', ch_)
-      const year = await getHex(ch_,67,2)
-      const month = ch_[66]
-      const day = ch_[65]
-      const longitude = await getHex(ch_,44,4)
-      const latitude = await getHex(ch_,48,4)
-      const groundSpeed = await getHex(ch_,56,4)
-      let buffer
-      let ack_buffer
-      ch_.forEach(val => {
-        buffer = buffer ? buffer + ' ' + val.toString(16) : val.toString(16)
-      })
-      const hour = await getHex(ch_,64,1)
-      const minute = await getHex(ch_,63,1)
-      const second = await getHex(ch_,62,1)
-      const speedDirection = await getHex(ch_,62,1)
-      let sum = 0
-      const ack = [ch_[0],ch_[1],ch_[2],ch_[3], 04, ch_[5], ch_[6], ch_[7], ch_[8],00, 00, 00, 00, 00, 00, ch_[11],  00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00 ]
-      for(let i = 0; i < ack.length; i++) {
-        sum = (i >=4 && i <=ack.length) ? sum + ack[i] : sum
-      }
-      ack.push(sum)
-      ack.forEach(val => {
-        ack_buffer = ack_buffer ? ack_buffer + ' ' + val.toString(16) : val.toString(16)
-      })
-      console.log('latitude', latitude, 'longitude', longitude, 'groundSpeed', groundSpeed, 'speedDirection', speedDirection)
-      console.log('date', `${parseInt('0x'+year)}-${month}-${day} ${hour}:${minute}:${second}`, buffer)
-      const newBuffer = new Buffer(ack)
-      console.log('an', ch_[11],'sum', sum,'buffer', newBuffer)
-      socket.write(newBuffer)
+      parseData(ch)
       
       
     });
@@ -134,6 +103,40 @@ const getHex = (data, index, length) => {
   })
   
   
+}
+const parseData = (ch) => {
+  const ch_ = [...ch]
+  const an = ch_[11]
+  // console.log('ch_', ch_)
+  const year = await getHex(ch_,67,2)
+  const month = ch_[66]
+  const day = ch_[65]
+  const longitude = await getHex(ch_,44,4)
+  const latitude = await getHex(ch_,48,4)
+  const groundSpeed = await getHex(ch_,56,4)
+  let buffer
+  let ack_buffer
+  ch_.forEach(val => {
+    buffer = buffer ? buffer + ' ' + val.toString(16) : val.toString(16)
+  })
+  const hour = await getHex(ch_,64,1)
+  const minute = await getHex(ch_,63,1)
+  const second = await getHex(ch_,62,1)
+  const speedDirection = await getHex(ch_,62,1)
+  let sum = 0
+  const ack = [ch_[0],ch_[1],ch_[2],ch_[3], 04, ch_[5], ch_[6], ch_[7], ch_[8],00, 00, 00, 00, 00, 00, ch_[11],  00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00 ]
+  for(let i = 0; i < ack.length; i++) {
+    sum = (i >=4 && i <=ack.length) ? sum + ack[i] : sum
+  }
+  ack.push(sum)
+  ack.forEach(val => {
+    ack_buffer = ack_buffer ? ack_buffer + ' ' + val.toString(16) : val.toString(16)
+  })
+  console.log('latitude', latitude, 'longitude', longitude, 'groundSpeed', groundSpeed, 'speedDirection', speedDirection)
+  console.log('date', `${parseInt('0x'+year)}-${month}-${day} ${hour}:${minute}:${second}`, buffer)
+  const newBuffer = new Buffer(ack)
+  console.log('an', ch_[11],'sum', sum,'buffer', newBuffer)
+  socket.write(newBuffer)
 }
 
 
