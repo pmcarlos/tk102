@@ -111,8 +111,10 @@ const parseData = async (ch, socket) => {
   const year = await getHex(ch_,67,2)
   const month = ch_[66]
   const day = ch_[65]
-  const longitude = await getHex(ch_,44,4)
-  const latitude = await getHex(ch_,48,4)
+  let longitude = await getHex(ch_,44,4)
+  longitude = (hexToInt32(longitude)/100000000)*180/Math.PI
+  let latitude = await getHex(ch_,48,4)
+  latitude = (hexToInt32(latitude)/100000000)*180/Math.PI
   const groundSpeed = await getHex(ch_,56,4)
   let buffer
   let ack_buffer
@@ -134,7 +136,7 @@ const parseData = async (ch, socket) => {
     ack_buffer = ack_buffer ? ack_buffer + ' ' + val.toString(16) : val.toString(16)
   })
   console.log('buffer', buffer, 'unit----------', unitId, '--------')
-  console.log('latitude', (hexToInt32(latitude)/100000000)*180/Math.PI, 'longitude', (hexToInt32(longitude)/100000000)*180/Math.PI, 'groundSpeed', groundSpeed, 'speedDirection', speedDirection)
+  console.log('latitude', latitude, 'longitude', longitude, 'groundSpeed', groundSpeed, 'speedDirection', speedDirection)
   console.log('date', `${hexToUint(year)}-${month}-${day} ${hour}:${minute}:${second}`)
   const newBuffer = new Buffer(ack)
   // console.log('an', ch_[11],'sum', sum,'buffer', newBuffer)
