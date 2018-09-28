@@ -150,9 +150,6 @@ tk102.createServer = function (vars) {
       for(let i = 0; i < ack.length; i++) {
         sum = (i >=4 && i <=ack.length) ? sum + ack[i] : sum
       }
-      ack.splice(4,26).forEach(value => {
-        sum += parseInt(value)
-      })
       ack.push(sum)
       console.log(ack)
 
