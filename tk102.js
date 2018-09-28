@@ -122,8 +122,6 @@ tk102.createServer = function (vars) {
     var data = '';
 
     socket.on ('data', async function (ch) {
-      console.log('-------new data', ch)
-      console.log(ch[67], ch[68])
       const ch_ = [...ch]
       const an = ch_[11]
       // console.log('ch_', ch_)
@@ -147,7 +145,6 @@ tk102.createServer = function (vars) {
       const latitude = ch_.splice(48,4)
       let sum = 0
       const ack = [...ch_.splice(0,5), 04, ...ch_.splice(5,4),00, 00, 00, 00, 00, 00, ch_[11],  00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00 ]
-      console.log(ack)
       for(let i = 0; i < ack.length; i++) {
         sum = (i >=4 && i <=ack.length) ? sum + ack[i] : sum
       }
@@ -155,10 +152,8 @@ tk102.createServer = function (vars) {
       ack.forEach(val => {
         ack_buffer = ack_buffer ? ack_buffer + ' ' + val.toString(16) : val.toString(16)
       })
-      console.log('ack',ack)
-      console.log('ack_buffer',ack_buffer)
 
-      console.log('buffer', new Buffer(ack))
+      console.log('an', ch_[11],'buffer', new Buffer(ack))
       socket.emit(new Buffer(ack))
       
       
