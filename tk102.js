@@ -122,7 +122,7 @@ const parseData = async (ch, socket) => {
   const hour = await getHex(ch_,64,1)
   const minute = await getHex(ch_,63,1)
   const second = await getHex(ch_,62,1)
-  const speedDirection = await getHex(ch_,62,1)
+  const speedDirection = await getHex(ch_,60,2)
   let sum = 0
   const ack = [ch_[0],ch_[1],ch_[2],ch_[3], 04, ch_[5], ch_[6], ch_[7], ch_[8],00, 00, 00, 00, 00, 00, ch_[11],  00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00 ]
   for(let i = 0; i < ack.length; i++) {
