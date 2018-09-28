@@ -71,8 +71,8 @@ tk102.createServer = function (vars) {
       const year = parseInt(`0x${ch_[68].toString(16)}${ch_[67].toString(16)}`)
       const month = ch_[66]
       const day = ch_[65]
-      const longitude = `${ch_[47].toString(16)}${ch_[46].toString(16)}${ch_[45].toString(16)}${ch_[44].toString(16)}`
-      const latitude = `${ch_[51].toString(16)}${ch_[50].toString(16)}${ch_[49].toString(16)}${ch_[48].toString(16)}`
+      const longitude = `${ch_[47].toString(16)} ${ch_[46].toString(16)} ${ch_[45].toString(16)} ${ch_[44].toString(16)}`
+      const latitude = `${ch_[51].toString(16)} ${ch_[50].toString(16)} ${ch_[49].toString(16)} ${ch_[48].toString(16)}`
       let buffer
       let ack_buffer
       ch_.forEach(val => {
