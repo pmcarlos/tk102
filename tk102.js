@@ -93,7 +93,7 @@ tk102.createServer = function (vars) {
         ack_buffer = ack_buffer ? ack_buffer + ' ' + val.toString(16) : val.toString(16)
       })
       console.log('latitude', latitude, 'longitude', longitude, 'groundSpeed', groundSpeed)
-      console.log('date', `${month}-${parseInt('0x'+year)}`, buffer)
+      console.log(year, 'date', `${month}-${parseInt('0x'+year)}`, buffer)
       const newBuffer = new Buffer(ack)
       console.log('an', ch_[11],'sum', sum,'buffer', newBuffer)
       socket.write(newBuffer)
