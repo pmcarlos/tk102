@@ -115,7 +115,8 @@ const parseData = async (ch, socket) => {
   longitude = (hexToInt32(longitude)/100000000)*180/Math.PI
   let latitude = await getHex(ch_,48,4)
   latitude = (hexToInt32(latitude)/100000000)*180/Math.PI
-  const groundSpeed = await getHex(ch_,56,4)
+  let groundSpeed = await getHex(ch_,56,4)
+  groundSpeed = groundSpeed/100*3.6
   let buffer
   let ack_buffer
   ch_.forEach(val => {
