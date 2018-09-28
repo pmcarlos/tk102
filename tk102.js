@@ -68,7 +68,7 @@ tk102.createServer = function (vars) {
       const ch_ = [...ch]
       const an = ch_[11]
       // console.log('ch_', ch_)
-      let year
+      const year = `${ch_[67]} ${ch_[68]}`
       let buffer
       let ack_buffer
       ch_.forEach(val => {
@@ -92,7 +92,7 @@ tk102.createServer = function (vars) {
       ack.forEach(val => {
         ack_buffer = ack_buffer ? ack_buffer + ' ' + val.toString(16) : val.toString(16)
       })
-      console.log(buffer)
+      console.log('year', year, buffer)
       const newBuffer = new Buffer(ack)
       console.log('an', ch_[11],'sum', sum,'buffer', newBuffer)
       socket.write(newBuffer)
