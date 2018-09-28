@@ -142,7 +142,7 @@ const parseData = async (ch, socket) => {
 }
 
 function toInt32(x) {
-  var uint32 = ToUint32(x);
+  var uint32 = x;
   if (uint32 >= Math.pow(2, 31)) {
       return uint32 - Math.pow(2, 32)
   } else {
