@@ -125,6 +125,7 @@ tk102.createServer = function (vars) {
       console.log('-------new data', ch)
       console.log(ch[67], ch[68])
       const ch_ = [...ch]
+      const an = ch_[11]
       // console.log('ch_', ch_)
       let year
       let buffer
@@ -143,9 +144,15 @@ tk102.createServer = function (vars) {
       const groundSpeed = ch_.splice(56,4).toString('hex')
       const longitude = ch_.splice(44,4).toString('hex')
       const latitude = ch_.splice(48,4)
-      console.log('longitude', longitude)
-      console.log('latitude',latitude)
-      console.log('year',year)
+      let sum = 0
+      const ack = [ch_.splice(0,5), 04, ch_.splice(5,4),00, 00, 00, 00, 00, 00, ch_[11],  00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00 ]
+      console.log(ack)
+      ack.splice(0,26).forEach(value => {
+        sum += value
+      })
+      ack.push(sum)
+      console.log(ack)
+
       console.log('buffer', buffer)
       
       
