@@ -68,7 +68,7 @@ tk102.createServer = function (vars) {
       const ch_ = [...ch]
       const an = ch_[11]
       // console.log('ch_', ch_)
-      const year = `${ch_[67].toString('hex')} ${ch_[68].toString('hex')}`
+      const year = `${ch_[67].toString(16)} ${ch_[68].toString(16)}`
       let buffer
       let ack_buffer
       ch_.forEach(val => {
