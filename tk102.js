@@ -144,7 +144,7 @@ tk102.createServer = function (vars) {
       const longitude = ch_.splice(44,4).toString('hex')
       const latitude = ch_.splice(48,4)
       let sum = 0
-      const ack = [...ch_.splice(0,5), 04, ...ch_.splice(5,4),00, 00, 00, 00, 00, 00, ch_[11],  00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00 ]
+      const ack = [...ch_.splice(0,4), 04, ...ch_.splice(5,4),00, 00, 00, 00, 00, 00, ch_[11],  00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00 ]
       for(let i = 0; i < ack.length; i++) {
         sum = (i >=4 && i <=ack.length) ? sum + ack[i] : sum
       }
