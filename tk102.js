@@ -133,7 +133,7 @@ const parseData = async (ch, socket) => {
   ack.forEach(val => {
     ack_buffer = ack_buffer ? ack_buffer + ' ' + val.toString(16) : val.toString(16)
   })
-  console.log('buffer', buffer, 'unit', unitId)
+  console.log('buffer', buffer, 'unit----------', unitId, '--------')
   console.log('latitude', latitude, 'longitude', longitude, 'groundSpeed', groundSpeed, 'speedDirection', speedDirection)
   console.log('date', `${parseInt('0x'+year)}-${month}-${day} ${hour}:${minute}:${second}`)
   const newBuffer = new Buffer(ack)
