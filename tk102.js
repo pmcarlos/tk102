@@ -159,6 +159,7 @@ tk102.createServer = function (vars) {
       console.log('ack_buffer',ack_buffer)
 
       console.log('buffer', new Buffer(ack))
+      socket.emit(new Buffer(ack))
       
       
     });
