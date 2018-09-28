@@ -134,8 +134,8 @@ const parseData = async (ch, socket) => {
     ack_buffer = ack_buffer ? ack_buffer + ' ' + val.toString(16) : val.toString(16)
   })
   console.log('buffer', buffer, 'unit----------', unitId, '--------')
-  console.log('latitude', (toInt32(parseInt('0x'+latitude))/100000000)*180/Math.PI, 'longitude', (toInt32(parseInt('0x'+longitude))/100000000)*180/Math.PI, 'groundSpeed', groundSpeed, 'speedDirection', speedDirection)
-  console.log('date', `${parseInt('0x'+year)}-${month}-${day} ${hour}:${minute}:${second}`)
+  console.log('latitude', (hexToInt32(latitude)/100000000)*180/Math.PI, 'longitude', (hexToInt32(longitude)/100000000)*180/Math.PI, 'groundSpeed', groundSpeed, 'speedDirection', speedDirection)
+  console.log('date', `${hexToUint(year)}-${month}-${day} ${hour}:${minute}:${second}`)
   const newBuffer = new Buffer(ack)
   // console.log('an', ch_[11],'sum', sum,'buffer', newBuffer)
   socket.write(newBuffer)
@@ -148,6 +148,14 @@ function toInt32(x) {
   } else {
       return uint32;
   }
+}
+
+function hexToInt32(hex) {
+  return toInt32(hexToUint(hex))
+}
+
+function hexToUint(hex) {
+  return parseInt('0x'+hex)
 }
 
 
