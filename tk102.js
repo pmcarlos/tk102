@@ -71,7 +71,6 @@ tk102.createServer = function (vars) {
       const year = await getHex(ch_,67,2)
       const month = ch_[66]
       const day = ch_[65]
-      const hour = await getHex(64,1)
       const longitude = await getHex(ch_,44,4)
       const latitude = await getHex(ch_,48,4)
       const groundSpeed = await getHex(ch_,56,4)
@@ -80,6 +79,7 @@ tk102.createServer = function (vars) {
       ch_.forEach(val => {
         buffer = buffer ? buffer + ' ' + val.toString(16) : val.toString(16)
       })
+      const hour = ch_.splice(64,1).toString('hex')
       const minute = ch_.splice(63,1).toString('hex')
       const second = ch_.splice(62,1).toString('hex')
       const speedDirection = ch_.splice(60,2).toString('hex')
@@ -93,7 +93,7 @@ tk102.createServer = function (vars) {
         ack_buffer = ack_buffer ? ack_buffer + ' ' + val.toString(16) : val.toString(16)
       })
       console.log('latitude', latitude, 'longitude', longitude, 'groundSpeed', groundSpeed)
-      console.log(year, 'date', `${month}-${parseInt('0x'+year)} ${hour}`, buffer)
+      console.log(year, 'date', `${month}-${parseInt('0x'+year)}`, buffer)
       const newBuffer = new Buffer(ack)
       console.log('an', ch_[11],'sum', sum,'buffer', newBuffer)
       socket.write(newBuffer)
