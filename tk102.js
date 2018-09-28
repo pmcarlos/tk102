@@ -128,9 +128,7 @@ const getHex = (data, index, length) => {
   let hex = ''
   return new Promise((resolve, reject) => {
     for(let i = length -1; i >= 0; i--) {
-      console.log('hex1_'+i+'_', hex)
       hex += data[index+i].toString(16).length == 2 ? data[index+i].toString(16) : `0${data[index+i].toString(16)}`
-      console.log('hex2_'+i+'_', hex)
       if(i==0) resolve(hex)
     }
   })
