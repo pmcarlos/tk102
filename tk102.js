@@ -68,12 +68,12 @@ tk102.createServer = function (vars) {
       const ch_ = [...ch]
       const an = ch_[11]
       // console.log('ch_', ch_)
-      const year = parseInt(`0x${getHex(ch_,67,2)}`)
+      const year = parseInt(`0x${await getHex(ch_,67,2)}`)
       const month = ch_[66]
       const day = ch_[65]
-      const longitude = getHex(ch_,44,4)
-      const latitude = getHex(ch_,48,4)
-      const groundSpeed = getHex(ch_,56,4)
+      const longitude = await getHex(ch_,44,4)
+      const latitude = await getHex(ch_,48,4)
+      const groundSpeed = await getHex(ch_,56,4)
       let buffer
       let ack_buffer
       ch_.forEach(val => {
@@ -126,12 +126,15 @@ tk102.createServer = function (vars) {
 
 const getHex = (data, index, length) => {
   let hex = ''
-  for(let i = length -1; i >= 0; i--) {
-    console.log('hex1_'+i+'_', hex)
-    hex += ' '+data[index+i].toString(16)
-    console.log('hex2_'+i+'_', hex)
-    if(i==0) return hex
-  }
+  return new Promise((resolve, reject) => {
+    for(let i = length -1; i >= 0; i--) {
+      console.log('hex1_'+i+'_', hex)
+      hex += ' '+data[index+i].toString(16)
+      console.log('hex2_'+i+'_', hex)
+      if(i==0) resolve(hex)
+    }
+  })
+  
   
 }
 
