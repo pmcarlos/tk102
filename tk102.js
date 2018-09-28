@@ -68,15 +68,16 @@ tk102.createServer = function (vars) {
       const ch_ = [...ch]
       const an = ch_[11]
       // console.log('ch_', ch_)
-      const year = `${ch_[68].toString(16)}${ch_[67].toString(16)}`
-      console.log(parseInt('0x'+year))
+      const year = parseInt(`0x${ch_[68].toString(16)}${ch_[67].toString(16)}`)
+      const month = ch_[66]
+      const day = ch_[65]
+      const longitude = `${ch_[47]}${ch_[46]}${ch_[45]}${ch_[44]}`
+      const latitude = `${ch_[51]}${ch_[50]}${ch_[49]}${ch_[48]}`
       let buffer
       let ack_buffer
       ch_.forEach(val => {
         buffer = buffer ? buffer + ' ' + val.toString(16) : val.toString(16)
       })
-      const month = ch_.splice(66,1).toString('hex')
-      const day = ch_.splice(65,1).toString('hex')
       const hour = ch_.splice(64,1).toString('hex')
       const minute = ch_.splice(63,1).toString('hex')
       const second = ch_.splice(62,1).toString('hex')
@@ -93,7 +94,8 @@ tk102.createServer = function (vars) {
       ack.forEach(val => {
         ack_buffer = ack_buffer ? ack_buffer + ' ' + val.toString(16) : val.toString(16)
       })
-      console.log('year', year, buffer)
+      console.log('latitude', latitude, 'longitude', longitude)
+      console.log('date', `${month}-${year}`, buffer)
       const newBuffer = new Buffer(ack)
       console.log('an', ch_[11],'sum', sum,'buffer', newBuffer)
       socket.write(newBuffer)
