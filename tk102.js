@@ -104,7 +104,7 @@ const getHex = (data, index, length) => {
   
   
 }
-const parseData = (ch) => {
+const parseData = async (ch) => {
   const ch_ = [...ch]
   const an = ch_[11]
   // console.log('ch_', ch_)
