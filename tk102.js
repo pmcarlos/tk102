@@ -68,11 +68,12 @@ tk102.createServer = function (vars) {
       const ch_ = [...ch]
       const an = ch_[11]
       // console.log('ch_', ch_)
-      const year = parseInt(`0x${ch_[68].toString(16)}${ch_[67].toString(16)}`)
+      const year = parseInt(`0x${getHex(67,2)}`)
       const month = ch_[66]
       const day = ch_[65]
-      const longitude = `${ch_[47].toString(16)} ${ch_[46].toString(16)} ${ch_[45].toString(16)} ${ch_[44].toString(16)}`
-      const latitude = `${ch_[51].toString(16)} ${ch_[50].toString(16)} ${ch_[49].toString(16)} ${ch_[48].toString(16)}`
+      const longitude = getHex(44,4)
+      const latitude = getHex(48,4)
+      const groundSpeed = getHex(56,4)
       let buffer
       let ack_buffer
       ch_.forEach(val => {
@@ -82,7 +83,6 @@ tk102.createServer = function (vars) {
       const minute = ch_.splice(63,1).toString('hex')
       const second = ch_.splice(62,1).toString('hex')
       const speedDirection = ch_.splice(60,2).toString('hex')
-      const groundSpeed = ch_.splice(56,4).toString('hex')
       let sum = 0
       const ack = [ch_[0],ch_[1],ch_[2],ch_[3], 04, ch_[5], ch_[6], ch_[7], ch_[8],00, 00, 00, 00, 00, 00, ch_[11],  00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00 ]
       for(let i = 0; i < ack.length; i++) {
@@ -92,7 +92,7 @@ tk102.createServer = function (vars) {
       ack.forEach(val => {
         ack_buffer = ack_buffer ? ack_buffer + ' ' + val.toString(16) : val.toString(16)
       })
-      console.log('latitude', latitude, 'longitude', longitude)
+      console.log('latitude', latitude, 'longitude', longitude, 'groundSpeed', groundSpeed)
       console.log('date', `${month}-${year}`, buffer)
       const newBuffer = new Buffer(ack)
       console.log('an', ch_[11],'sum', sum,'buffer', newBuffer)
@@ -124,6 +124,13 @@ tk102.createServer = function (vars) {
   });
 };
 
+const getHex = (data, index, length) => {
+  let hex = ''
+  for(let i = length - 1; i == 0; i--) {
+    hex += ' '+data[index+i].toString(16)
+  }
+  return hex
+}
 
 
 
