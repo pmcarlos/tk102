@@ -151,7 +151,7 @@ tk102.createServer = function (vars) {
       })
       console.log(buffer)
       console.log('an', ch_[11],'sum', sum,'buffer', new Buffer(ack))
-      socket.emit(new Buffer(ack))
+      socket.write(new Buffer(ack))
       
       
     });
