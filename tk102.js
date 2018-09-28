@@ -129,6 +129,7 @@ tk102.createServer = function (vars) {
       // console.log('ch_', ch_)
       let year
       let buffer
+      let ack_buffer
       ch_.forEach(val => {
         buffer = buffer ? buffer + ' ' + val.toString(16) : val.toString(16)
       })
@@ -151,9 +152,13 @@ tk102.createServer = function (vars) {
         sum = (i >=4 && i <=ack.length) ? sum + ack[i] : sum
       }
       ack.push(sum)
-      console.log(ack)
+      ack.forEach(val => {
+        ack_buffer = ack_buffer ? ack_buffer + ' ' + val.toString(16) : val.toString(16)
+      })
+      console.log('ack',ack)
+      console.log('ack_buffer',ack_buffer)
 
-      console.log('buffer', buffer)
+      console.log('buffer', new Buffer(ack))
       
       
     });
