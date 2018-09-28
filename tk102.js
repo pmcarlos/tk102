@@ -152,7 +152,7 @@ tk102.createServer = function (vars) {
       ack.forEach(val => {
         ack_buffer = ack_buffer ? ack_buffer + ' ' + val.toString(16) : val.toString(16)
       })
-
+      console.log(buffer)
       console.log('an', ch_[11],'buffer', new Buffer(ack))
       socket.emit(new Buffer(ack))
       
