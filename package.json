@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "iconv-lite": "^0.4.23"
+    "iconv-lite": "^0.4.23",
+    "sequelize": "^4.39.0",
+    "tedious": "^2.6.4"
   }
 }
